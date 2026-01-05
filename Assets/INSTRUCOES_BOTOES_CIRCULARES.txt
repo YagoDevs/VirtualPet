@@ -1,0 +1,220 @@
+═══════════════════════════════════════════════════════════════════
+   GUIA: COMO CONFIGURAR OS BOTÕES CIRCULARES DE STATUS
+═══════════════════════════════════════════════════════════════════
+
+📋 O QUE FOI CRIADO:
+- CircularStatusButton.cs → Script que controla os botões circulares
+- PetUIManager.cs → Atualizado para usar os botões circulares
+
+═══════════════════════════════════════════════════════════════════
+PASSO 1: CRIAR A ESTRUTURA UI NA UNITY
+═══════════════════════════════════════════════════════════════════
+
+1.1) Na Hierarchy, vá até seu Canvas existente
+
+1.2) Crie o BOTÃO DE FOME (Hunger):
+   
+   a) Clique direito no Canvas → UI → Image
+      - Renomeie para: "HungerButton"
+   
+   b) Selecione "HungerButton" e configure:
+      • Rect Transform:
+        - Width: 100
+        - Height: 100
+      • Image Component:
+        - Color: Cinza escuro (RGB: 50, 50, 50)
+        - Image Type: Simple
+        - Preserve Aspect: ✓ (marcado)
+   
+   c) Com "HungerButton" selecionado, clique direito → UI → Image
+      - Renomeie para: "FillImage"
+      - Configure:
+        • Rect Transform: Stretch (todos os lados)
+          - Left: 0, Right: 0, Top: 0, Bottom: 0
+        • Image Component:
+          - Color: Amarelo (você vai mudar depois)
+          - Image Type: Filled (IMPORTANTE!)
+          - Fill Method: Vertical
+          - Fill Origin: Bottom
+          - Fill Amount: 1
+   
+   d) Com "HungerButton" selecionado novamente, clique direito → UI → Image
+      - Renomeie para: "Icon"
+      - Configure:
+        • Rect Transform:
+          - Width: 60
+          - Height: 60
+        • Image Component:
+          - Aqui você vai colocar o sprite do ícone de comida
+          - Preserve Aspect: ✓ (marcado)
+
+1.3) Adicione o componente CircularStatusButton:
+   
+   a) Selecione "HungerButton"
+   b) Add Component → procure "CircularStatusButton"
+   c) Configure:
+      • Fill Image: Arraste o objeto "FillImage" aqui
+      • Icon Image: Arraste o objeto "Icon" aqui
+      • Full Color: ESCOLHA SUA COR PARA 100% (ex: Verde, Amarelo)
+      • Empty Color: ESCOLHA SUA COR PARA 0% (ex: Vermelho)
+      • Current Value: 100
+      • Fill Type: VerticalBottomToTop
+
+═══════════════════════════════════════════════════════════════════
+PASSO 2: CRIAR O BOTÃO DE ENERGIA (Energy)
+═══════════════════════════════════════════════════════════════════
+
+2.1) REPITA TODO O PASSO 1, mas:
+   - Renomeie tudo para "EnergyButton" ao invés de "HungerButton"
+   - Use um ícone diferente (raio/bateria para energia)
+   - Você pode usar cores diferentes se quiser
+
+═══════════════════════════════════════════════════════════════════
+PASSO 3: CONECTAR NO PetUIManager
+═══════════════════════════════════════════════════════════════════
+
+3.1) Selecione o GameObject que tem o componente "PetUIManager"
+     (provavelmente está no Canvas)
+
+3.2) No Inspector, você verá novos campos:
+   • Hunger Status Button: Arraste "HungerButton" aqui
+   • Energy Status Button: Arraste "EnergyButton" aqui
+
+═══════════════════════════════════════════════════════════════════
+PASSO 4: DEIXAR OS BOTÕES CIRCULARES (Opcional)
+═══════════════════════════════════════════════════════════════════
+
+Para fazer os botões ficarem REDONDOS:
+
+4.1) Você precisa de um sprite circular. Duas opções:
+
+OPÇÃO A - Usar o sprite padrão da Unity:
+   a) Selecione "HungerButton"
+   b) No componente Image, em "Source Image"
+   c) Procure por "Knob" ou "UISprite" (sprites padrão da Unity)
+
+OPÇÃO B - Criar seu próprio círculo:
+   a) Crie uma imagem PNG 512x512 com círculo branco
+   b) Importe para Unity (arraste para a pasta Assets)
+   c) Configure a textura:
+      - Texture Type: Sprite (2D and UI)
+      - Apply
+   d) Use esse sprite em "Source Image"
+
+4.2) Faça o mesmo para "FillImage" e "EnergyButton"
+
+═══════════════════════════════════════════════════════════════════
+PASSO 5: ADICIONAR ÍCONES
+═══════════════════════════════════════════════════════════════════
+
+5.1) Você precisa de 2 ícones (PNG transparente):
+   • 🍖 Comida/Fome
+   • ⚡ Energia/Bateria
+
+5.2) ONDE ENCONTRAR ÍCONES GRÁTIS:
+   - flaticon.com
+   - icons8.com
+   - opengameart.org
+   - Ou use emojis convertidos para PNG
+
+5.3) IMPORTAR:
+   a) Arraste os PNG para Assets/textures (crie a pasta se não existir)
+   b) Selecione cada imagem
+   c) Configure:
+      - Texture Type: Sprite (2D and UI)
+      - Apply
+   
+5.4) ADICIONAR AOS BOTÕES:
+   a) Selecione "HungerButton/Icon"
+   b) No componente Image, em "Source Image"
+   c) Arraste o sprite do ícone de comida
+   
+   d) Repita para "EnergyButton/Icon" com o ícone de energia
+
+═══════════════════════════════════════════════════════════════════
+CONFIGURAÇÃO DAS CORES (IMPORTANTE!)
+═══════════════════════════════════════════════════════════════════
+
+Você define as cores no componente CircularStatusButton:
+
+• FULL COLOR (100%): A cor quando está cheio
+  Exemplos:
+  - Verde: RGB(0, 255, 0)
+  - Amarelo: RGB(255, 255, 0)
+  - Azul: RGB(0, 200, 255)
+
+• EMPTY COLOR (0%): A cor quando está vazio
+  Exemplos:
+  - Vermelho: RGB(255, 0, 0)
+  - Laranja: RGB(255, 150, 0)
+  - Cinza: RGB(100, 100, 100)
+
+COMO A COR MUDA:
+100% → Mostra só FULL COLOR
+75%  → 75% FULL COLOR + 25% EMPTY COLOR
+50%  → 50% FULL COLOR + 50% EMPTY COLOR
+25%  → 25% FULL COLOR + 75% EMPTY COLOR
+0%   → Mostra só EMPTY COLOR
+
+═══════════════════════════════════════════════════════════════════
+TIPOS DE PREENCHIMENTO
+═══════════════════════════════════════════════════════════════════
+
+No componente CircularStatusButton, você pode escolher:
+
+• VerticalBottomToTop → Enche de BAIXO para CIMA (recomendado!)
+• VerticalTopToBottom → Enche de CIMA para BAIXO
+• HorizontalLeftToRight → Enche da ESQUERDA para DIREITA
+• HorizontalRightToLeft → Enche da DIREITA para ESQUERDA
+• Radial360 → Enche em CÍRCULO (como relógio)
+
+═══════════════════════════════════════════════════════════════════
+TESTANDO
+═══════════════════════════════════════════════════════════════════
+
+1) Aperte Play
+2) Os botões devem começar preenchidos (100%)
+3) Conforme a Fome e Energia diminuem, o preenchimento e a cor mudam
+4) Teste alimentar o pet e veja o botão de Fome voltar a encher!
+
+═══════════════════════════════════════════════════════════════════
+DICA PRO: FAZER OS BOTÕES CLICÁVEIS
+═══════════════════════════════════════════════════════════════════
+
+Se você quiser que os botões façam algo quando clicados:
+
+1) Selecione "HungerButton"
+2) Add Component → Button
+3) No componente Button, em "On Click ()"
+4) Adicione uma ação (ex: chamar petController.Feed())
+
+═══════════════════════════════════════════════════════════════════
+PROBLEMAS COMUNS
+═══════════════════════════════════════════════════════════════════
+
+❌ O botão não muda de cor:
+   → Verifique se "Fill Image" está conectado no CircularStatusButton
+   → Verifique se o Image Type está como "Filled"
+
+❌ O preenchimento não funciona:
+   → Verifique Fill Method: Vertical
+   → Verifique Fill Origin: Bottom
+   → Verifique se Fill Image está como Type: Filled
+
+❌ O ícone não aparece:
+   → Verifique se o sprite está importado como "Sprite (2D and UI)"
+   → Verifique se o "Icon" está na frente (último na Hierarchy)
+
+❌ O botão não é redondo:
+   → Use um sprite circular em "Source Image"
+   → Ou deixe quadrado mesmo (também fica bonito!)
+
+═══════════════════════════════════════════════════════════════════
+
+🎨 PERSONALIZE AS CORES COMO QUISER!
+O sistema está totalmente configurável para você escolher as cores
+que mais combinam com seu pet!
+
+═══════════════════════════════════════════════════════════════════
+
+

@@ -99,3 +99,7 @@ fmod_editor.log
 # FMOD 1.10.x (Legacy)
 /Assets/FMODAssets/*
 /Assets/FMODStudioCache.meta
+
+# Unity large assets
+*.cubemap
+Assets/Real Stars Skybox/
